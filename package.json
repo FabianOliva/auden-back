@@ -1,18 +1,19 @@
 {
-  "name": "proyecto-auden-back",
-  "version": "0.0.0",
-  "private": true,
+  "name": "auden-back-v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon start"
+    "dev": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "http-errors": "~1.6.3",
-    "jade": "^1.9.2",
-    "morgan": "~1.9.1"
+    "knex": "^2.5.1",
+    "pg": "^8.11.1"
   }
 }
