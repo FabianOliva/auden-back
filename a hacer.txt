@@ -1,0 +1,5 @@
+obtener canciones
+crear playlist
+obtener ""
+modificar ""
+crear playlist con condicinoes

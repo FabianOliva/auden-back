@@ -1,3 +1,4 @@
+//Los servicios son módulos independientes que contienen lógica de negocio compleja y reutilizable
 require("dotenv").config();
 const knex = require("knex");
 const knexFile = require("../knexfile");
