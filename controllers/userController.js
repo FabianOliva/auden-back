@@ -12,10 +12,24 @@ const getUsers = async (req, res) => {
   try {
     const users = await userModels.getUsersService();
     res.send(users);
-    console.log(users);
   } catch {
     res.status(500).send("error al traer ususarios");
   }
 };
 
-module.exports = { getUsers };
+//CREATE USER
+const createUser = async (req, res) => {
+  try {
+    const userData = {
+      username: "prueba1",
+      userpassword: "password1",
+      useremail: "email1@gmial.com",
+    };
+    await userModels.createUserService(userData);
+    res.status(200).send("usuario creado");
+  } catch {
+    res.status(500).send("no se pudo crear el usuario");
+  }
+};
+
+module.exports = { getUsers, createUser };

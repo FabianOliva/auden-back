@@ -1,9 +1,10 @@
+require("dotenv").config();
 const knex = require("knex");
 const knexFile = require("../knexfile");
 
 const environment = process.env.NODE_ENV || "development";
-
 const db = knex(knexFile[environment]);
+console.log(knexFile[environment]);
 
 // Evento para verificar si la conexión se estableció correctamente
 db.raw("SELECT 1")
