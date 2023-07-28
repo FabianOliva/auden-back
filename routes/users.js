@@ -17,4 +17,7 @@ router.put("/:username", userController.updateUser);
 //DELETE USER
 router.delete("/:username", userController.deleteUser);
 
+//SHOW USER INFO
+router.get("/:username/account", userController.getUserInfo);
+
 module.exports = router;

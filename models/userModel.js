@@ -3,7 +3,7 @@ const db = require("../services/database");
 
 //GET USER
 const getUserModel = async (username) => {
-  return await db.select().from("users").where("user_name", username);
+  return await db.select().from("users").where("user_username", username);
 };
 
 //GET ALL USERS
@@ -22,7 +22,7 @@ const createUserModel = async (userData) => {
 
 //UPDATE USER
 const updateUser = async (username, userNewData) => {
-  return await db("users").where("user_name", username).update({
+  return await db("users").where("user_username", username).update({
     user_username: userNewData.username,
     user_password: userNewData.userpassword,
     user_email: userNewData.useremail,
@@ -31,7 +31,16 @@ const updateUser = async (username, userNewData) => {
 
 //DELETE USER
 const deleteUser = async (username) => {
-  return await db("users").where("user_name", username).del();
+  return await db("users").where("user_username", username).del();
+};
+
+//GET USER INFO
+const getUserInfoModel = async (username) => {
+  return await db
+    .select("u.user_id", "u.user_name", "u.user_username", "u.user_email", "p.playlist_id", "p.playlist_name")
+    .from("users as u")
+    .leftJoin("playlist as p", "u.user_id", "p.user_id")
+    .where("u.user_username", username);
 };
 
 module.exports = {
@@ -40,4 +49,5 @@ module.exports = {
   getUserModel,
   updateUser,
   deleteUser,
+  getUserInfoModel,
 };
