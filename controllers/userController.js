@@ -20,7 +20,7 @@ const getUsers = async (req, res) => {
     const users = await userModels.getUsersModel();
     res.send(users);
   } catch {
-    res.status(500).send("error al traer ususarios");
+    res.status(500).send("error al traer usuarios");
   }
 };
 
