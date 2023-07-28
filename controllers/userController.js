@@ -33,7 +33,7 @@ const createUser = async (req, res) => {
       useremail: "email2@gmial.com",
     };
     await userModels.createUserModel(userData);
-    res.status(200).send("usuario creado");
+    res.status(201).send("usuario creado");
   } catch {
     res.status(500).send("no se pudo crear el usuario");
   }
