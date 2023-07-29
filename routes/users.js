@@ -24,7 +24,6 @@ router.get("/account/:username", userController.getUserInfo);
 
 //SHOW USER PLAYLIST INFO
 router.get("/playlist/:username", userController.getUserPlaylists);
-
 //INICIAR SESIÓN
 router.post("/login", userController.loginUser);
 
