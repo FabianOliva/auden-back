@@ -3,3 +3,28 @@ crear playlist
 obtener ""
 modificar ""
 crear playlist con condicinoes
+
+_______________________
+
+dani
+
+buscar en la base y verificar si existe el usuario jwt
+
+const isMatch = await bcrypt.compare(password, user.password);
+if (!isMatch) {
+      // Condition if password isn't correct
+      return res.status(400).json({ msg: "Invalid Credentials" });
+    }
+const { email, password } = req.body;
+
+si existe el usuario comparar con la base si esta ok la comparacion hacer el jwt y firmarlo.
+payload 
+
+
+28/7/23
+
+-terminar jwt y firmarlo
+-terminar las songs (YA ESTA CASI)
+-enlazar con la no fake
+-seguir con las playlist TIENE TODOS LOS METODOS
+
