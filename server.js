@@ -7,11 +7,12 @@ const songs = require("./routes/songs");
 const playlist = require("./routes/playlist");
 const albums = require("./routes/album");
 const cors = require("cors");
+const joins = require("./routes/joins");
 
 require("dotenv").config();
 const port = process.env.APP_PORT;
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5173/" }));
 
 //HOME
 app.use("/", routes);
@@ -23,6 +24,8 @@ app.use("/songs", songs);
 app.use("/playlist", playlist);
 //album
 app.use("/album", albums);
+//Joinis
+app.use("/joins", joins);
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}/`);
