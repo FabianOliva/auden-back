@@ -6,7 +6,6 @@ const users = require("./routes/users");
 const songs = require("./routes/songs");
 const playlist = require("./routes/playlist");
 const albums = require("./routes/album");
-const joins = require("./routes/joins");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -24,8 +23,6 @@ app.use("/songs", songs);
 app.use("/playlist", playlist);
 //album
 app.use("/album", albums);
-//JOINS
-app.use("/joins", joins);
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}/`);

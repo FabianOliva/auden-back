@@ -2,22 +2,29 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controllers/userController.js");
-//TRAER TODOS LOS USUSARIOS
+const verifyUserExistence = require("../middlewares/userMiddleweares.js");
+
+//OBTENER TODOS LOS USUARIOS
 router.get("/", userController.getUsers);
 
-//TRAER 1 USER / USERNAME
+//OBTENER 1 USUARIO / NOMBRE DE USUARIO
 router.get("/:username", userController.getUser);
 
-//CREATE USER
-router.post("/register", userController.createUser);
+//CREAR USUARIO
+router.post("/register", verifyUserExistence, userController.createUser);
 
-//UPDATE USER
+//ACTUALIZAR USUARIO
 router.put("/:username", userController.updateUser);
 
-//DELETE USER
+//ELIMINAR USUARIO
 router.delete("/:username", userController.deleteUser);
 
 //SHOW USER INFO
-router.get("/:username/account", userController.getUserInfo);
+router.get("/account/:username", userController.getUserInfo);
+
+//SHOW USER PLAYLIST INFO
+router.get("/playlist/:username", userController.getUserPlaylists);
+//INICIAR SESIÓN
+router.post("/login", userController.loginUser);
 
 module.exports = router;

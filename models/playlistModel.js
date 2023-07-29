@@ -11,6 +11,8 @@ const getPlaylistsModel = async () => {
   return await db.select().from("playlist");
 };
 
+//-------------------CREATE PLAYLIST-------------------/
+
 module.exports = {
   getPlaylistModel,
   getPlaylistsModel,
