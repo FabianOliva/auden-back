@@ -87,4 +87,15 @@ const getUserInfo = async (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers, createUser, updateUser, deleteUser, getUserInfo };
+const getUserPlaylists = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const userPlaylist = await userModels.getUserPlaylistsModel(username);
+    res.send(userPlaylist);
+    console.log("userPlaylist");
+  } catch {
+    res.status(500).send("No se pudo traer el usuario, quizas no exista.");
+  }
+};
+
+module.exports = { getUser, getUsers, createUser, updateUser, deleteUser, getUserInfo, getUserPlaylists };

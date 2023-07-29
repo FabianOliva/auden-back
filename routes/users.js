@@ -18,6 +18,9 @@ router.put("/:username", userController.updateUser);
 router.delete("/:username", userController.deleteUser);
 
 //SHOW USER INFO
-router.get("/:username/account", userController.getUserInfo);
+router.get("/account/:username", userController.getUserInfo);
+
+//SHOW USER PLAYLIST INFO
+router.get("/playlist/:username", userController.getUserPlaylists);
 
 module.exports = router;
