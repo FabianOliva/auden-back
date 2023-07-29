@@ -9,6 +9,15 @@ const getSongJoinArtistModel = async () => {
     .join("artist", "song.artist_id", "artist.artist_id");
 };
 
+//GET ALBUM AND ARTIST
+const getAlbumJoinArtistModel = async () => {
+  return await db
+    .select("album.*", "artist.*")
+    .from("album")
+    .join("artist", "album.artist_id", "artist.artist_id");
+};
+
 module.exports = {
   getSongJoinArtistModel,
+  getAlbumJoinArtistModel,
 };

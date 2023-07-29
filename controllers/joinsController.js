@@ -11,4 +11,14 @@ const getSongJoinArtist = async (req, res) => {
     res.status(400).send("Error al traer artistas y canciones", error);
   }
 };
-module.exports = { getSongJoinArtist };
+
+//--------------------GET ALBUM AND ARTIST INFO-------------------/
+const getAlbumJoinArtist = async (req, res) => {
+  try {
+    const data = await albumModels.getAlbumJoinArtistModel();
+    res.send(data);
+  } catch {
+    res.status(500).send("Error al traer albums");
+  }
+};
+module.exports = { getSongJoinArtist, getAlbumJoinArtist };
