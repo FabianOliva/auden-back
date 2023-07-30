@@ -19,9 +19,12 @@ router.put("/:username", userController.updateUser);
 //ELIMINAR USUARIO
 router.delete("/:username", userController.deleteUser);
 
+//SHOW USER INFO
+router.get("/account/:username", userController.getUserInfo);
+
+//SHOW USER PLAYLIST INFO
+router.get("/playlist/:username", userController.getUserPlaylists);
 //INICIAR SESIÓN
 router.post("/login", userController.loginUser);
 
 module.exports = router;
-
-

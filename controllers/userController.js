@@ -1,7 +1,7 @@
 // Importamos las dependencias necesarias
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const userModel = require('../models/userModel');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const userModel = require("../models/userModel");
 const userModels = require("../models/userModel.js");
 
 const verifyUserExistence = require("../middlewares/userMiddleweares.js");
@@ -29,25 +29,24 @@ const getUsers = async (req, res) => {
 
 // Controlador para crear un usuario
 const createUser = async (req, res) => {
- // try {
-    const { user_username, user_userpassword, user_email } = req.body;
-    const hashedPassword = await bcrypt.hash(user_userpassword, 10);
+  // try {
+  const { user_username, user_userpassword, user_email } = req.body;
+  const hashedPassword = await bcrypt.hash(user_userpassword, 10);
 
-    console.log(hashedPassword);
+  console.log(hashedPassword);
 
+  const userData = {
+    user_username,
+    user_password: hashedPassword,
+    user_email,
+  };
 
-    const userData = {
-      user_username,
-      user_password: hashedPassword,
-      user_email,
-    };
+  // console.log(userData);
 
-   // console.log(userData);
-
-    const newUser = await userModels.createUserModel(userData);
-    res.status(200).json({ message: "Usuario creado", user: newUser });
+  const newUser = await userModels.createUserModel(userData);
+  res.status(200).json({ message: "Usuario creado", user: newUser });
   //} catch {
-   // res.status(500).send("No se pudo crear el usuario");
+  // res.status(500).send("No se pudo crear el usuario");
   //}
 };
 
@@ -105,7 +104,7 @@ const deleteUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     console.log(req.body);
-    const { user_username, user_userpassword } = req.body; 
+    const { user_username, user_userpassword } = req.body;
     console.log("Logging in user: ", user_username);
 
     const user = await userModel.getUserModel(user_username);
@@ -115,8 +114,8 @@ const loginUser = async (req, res) => {
       console.log("User not found");
       return res.status(404).json({ mensaje: "Credenciales Invalidad." });
     }
-    console.log('user_userpassword:', user_userpassword);
-    console.log('user[0].user_password:', user[0].user_password);
+    console.log("user_userpassword:", user_userpassword);
+    console.log("user[0].user_password:", user[0].user_password);
     const passwordMatch = await bcrypt.compare(user_userpassword, user[0].user_password);
     console.log("Password match: ", passwordMatch);
 
@@ -124,15 +123,15 @@ const loginUser = async (req, res) => {
       const payload = {
         user: {
           id: user[0].id,
-          name: user[0].user_username
-        }
+          name: user[0].user_username,
+        },
       };
-  
+
       jwt.sign(
         payload,
         process.env.JWT_SECRET,
         {
-          expiresIn: "2d"
+          expiresIn: "2d",
         },
         (err, token) => {
           if (err) throw err;
@@ -149,4 +148,27 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers, createUser, updateUser, deleteUser, loginUser };
+//-------------------USER INFO-------------------/
+const getUserInfo = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const user = await userModels.getUserInfoModel(username);
+    res.send(user);
+    console.log("user");
+  } catch {
+    res.status(500).send("No se pudo traer el usuario, quizas no exista.");
+  }
+};
+
+const getUserPlaylists = async (req, res) => {
+  try {
+    const username = req.params.username;
+    const userPlaylist = await userModels.getUserPlaylistsModel(username);
+    res.send(userPlaylist);
+    console.log("userPlaylist");
+  } catch {
+    res.status(500).send("No se pudo traer el usuario, quizas no exista.");
+  }
+};
+
+module.exports = { getUser, getUsers, createUser, updateUser, deleteUser, getUserInfo, getUserPlaylists, loginUser };

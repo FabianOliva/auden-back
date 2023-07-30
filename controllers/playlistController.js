@@ -20,4 +20,14 @@ const getPlaylists = async (req, res) => {
   }
 };
 
-module.exports = { getPlaylist, getPlaylists };
+const getPlaylistSongs = async (req, res) => {
+  try {
+    const playlist_Id = req.params.playlist_Id;
+    const playlistSongs = await playlistModel.getPlaylistSongs(playlist_Id);
+    res.send(playlistSongs);
+  } catch {
+    res.status(500).send("No se pudo traer la playlist, quizas no exista.");
+  }
+};
+
+module.exports = { getPlaylist, getPlaylists, getPlaylistSongs };
