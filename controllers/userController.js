@@ -51,16 +51,43 @@ const createUser = async (req, res) => {
 };
 
 // Controlador para actualizar un usuario
+// const updateUser = async (req, res) => {
+//   try {
+//     const username = req.params.username;
+//     const userNewData = req.body;
+
+//     console.log("Actualizando usuario:", username);
+//     console.log("Nuevos datos del usuario:", userNewData);
+
+//     await userModels.updateUser(username, userNewData);
+//     res.status(200).send("Usuario actualizado exitosamente");
+//   } catch (error) {
+//     console.error("Error al actualizar el usuario:", error);
+//     res.status(500).send("No se pudo actualizar el usuario. Por favor, revisa los datos enviados.");
+//   }
+// };
+
+
 const updateUser = async (req, res) => {
   try {
     const username = req.params.username;
     const userNewData = req.body;
+
+    if (!userNewData.user_id || !userNewData.user_username) {
+      return res.status(400).send("Falta información requerida para la actualización del usuario.");
+    }
+
     await userModels.updateUser(username, userNewData);
-    res.status(200).send("Usuario actualizado");
-  } catch {
-    res.status(500).send("No se pudo actualizar el usuario");
+    res.status(200).send("Usuario actualizado exitosamente");
+  } catch (error) {
+    console.error("Error al actualizar el usuario:", error);
+    res.status(500).send("No se pudo actualizar el usuario. Por favor, revisa los datos enviados.");
   }
 };
+
+
+
+
 
 // Controlador para eliminar un usuario
 const deleteUser = async (req, res) => {
