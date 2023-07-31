@@ -37,10 +37,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// HOME
-
 //HOME
-
 app.use("/", routes);
 //USERS
 app.use("/users", users);

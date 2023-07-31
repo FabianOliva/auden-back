@@ -11,7 +11,7 @@ router.get("/", userController.getUsers);
 router.get("/:username", userController.getUser);
 
 //CREAR USUARIO
-router.post("/register", verifyUserExistence, userController.createUser);
+router.post("/register", userController.createUser);
 
 //ACTUALIZAR USUARIO
 router.put("/:username", userController.updateUser);
@@ -24,7 +24,5 @@ router.get("/account/:username", userController.getUserInfo);
 
 //SHOW USER PLAYLIST INFO
 router.get("/playlist/:username", userController.getUserPlaylists);
-//INICIAR SESIÓN
-router.post("/login", userController.loginUser);
 
 module.exports = router;

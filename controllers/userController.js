@@ -29,28 +29,28 @@ const getUsers = async (req, res) => {
 
 // Controlador para crear un usuario
 const createUser = async (req, res) => {
-  // try {
-  const { user_username, user_userpassword, user_email } = req.body;
-  const hashedPassword = await bcrypt.hash(user_userpassword, 10);
+  try {
+    const { user_username, user_userpassword, user_email } = req.body;
+    const hashedPassword = await bcrypt.hash(user_userpassword, 10);
 
-  console.log(hashedPassword);
+    console.log(hashedPassword);
 
-  const userData = {
-    user_username,
-    user_password: hashedPassword,
-    user_email,
-  };
+    const userData = {
+      user_username,
+      user_password: hashedPassword,
+      user_email,
+    };
 
-  // console.log(userData);
+    console.log(userData);
 
-  const newUser = await userModels.createUserModel(userData);
-  res.status(200).json({ message: "Usuario creado", user: newUser });
-  //} catch {
-  // res.status(500).send("No se pudo crear el usuario");
-  //}
+    const newUser = await userModels.createUserModel(userData);
+    res.status(200).json({ message: "Usuario creado", user: newUser });
+  } catch {
+    res.status(500).send("No se pudo crear el usuario");
+  }
 };
 
-// Controlador para actualizar un usuario
+//Controlador para actualizar un usuario
 // const updateUser = async (req, res) => {
 //   try {
 //     const username = req.params.username;
@@ -63,10 +63,13 @@ const createUser = async (req, res) => {
 //     res.status(200).send("Usuario actualizado exitosamente");
 //   } catch (error) {
 //     console.error("Error al actualizar el usuario:", error);
-//     res.status(500).send("No se pudo actualizar el usuario. Por favor, revisa los datos enviados.");
+//     res
+//       .status(500)
+//       .send(
+//         "No se pudo actualizar el usuario. Por favor, revisa los datos enviados."
+//       );
 //   }
 // };
-
 
 const updateUser = async (req, res) => {
   try {
@@ -74,20 +77,22 @@ const updateUser = async (req, res) => {
     const userNewData = req.body;
 
     if (!userNewData.user_id || !userNewData.user_username) {
-      return res.status(400).send("Falta información requerida para la actualización del usuario.");
+      return res
+        .status(400)
+        .send("Falta información requerida para la actualización del usuario.");
     }
 
     await userModels.updateUser(username, userNewData);
     res.status(200).send("Usuario actualizado exitosamente");
   } catch (error) {
     console.error("Error al actualizar el usuario:", error);
-    res.status(500).send("No se pudo actualizar el usuario. Por favor, revisa los datos enviados.");
+    res
+      .status(500)
+      .send(
+        "No se pudo actualizar el usuario. Por favor, revisa los datos enviados."
+      );
   }
 };
-
-
-
-
 
 // Controlador para eliminar un usuario
 const deleteUser = async (req, res) => {
@@ -116,7 +121,10 @@ const loginUser = async (req, res) => {
     }
     console.log("user_userpassword:", user_userpassword);
     console.log("user[0].user_password:", user[0].user_password);
-    const passwordMatch = await bcrypt.compare(user_userpassword, user[0].user_password);
+    const passwordMatch = await bcrypt.compare(
+      user_userpassword,
+      user[0].user_password
+    );
     console.log("Password match: ", passwordMatch);
 
     if (passwordMatch) {
@@ -135,7 +143,11 @@ const loginUser = async (req, res) => {
         },
         (err, token) => {
           if (err) throw err;
-          res.json({ email: user[0].user_email, name: user[0].user_username, token });
+          res.json({
+            email: user[0].user_email,
+            name: user[0].user_username,
+            token,
+          });
         }
       );
     } else {
@@ -171,4 +183,13 @@ const getUserPlaylists = async (req, res) => {
   }
 };
 
-module.exports = { getUser, getUsers, createUser, updateUser, deleteUser, getUserInfo, getUserPlaylists, loginUser };
+module.exports = {
+  getUser,
+  getUsers,
+  createUser,
+  updateUser,
+  deleteUser,
+  getUserInfo,
+  getUserPlaylists,
+  loginUser,
+};
