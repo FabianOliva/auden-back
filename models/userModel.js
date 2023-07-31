@@ -1,5 +1,6 @@
 // MODELS- INTERACTUAR CON LA BASE DE DATOS
 const db = require("../services/database");
+const knex = require("../services/database");
 
 
 // OBTENER USUARIO
