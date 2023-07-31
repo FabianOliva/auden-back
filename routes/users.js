@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userController = require("../controllers/userController.js");
 const verifyUserExistence = require("../middlewares/userMiddleweares.js");
+const verifyUserUpdate = require("../middlewares/verifyUserUpdate.js"); // Nueva middleware
 
 //OBTENER TODOS LOS USUARIOS
 router.get("/", userController.getUsers);
@@ -14,8 +15,7 @@ router.get("/:username", userController.getUser);
 router.post("/register", userController.createUser);
 
 //ACTUALIZAR USUARIO
-router.put("/:username", userController.updateUser);
-
+router.put("/:username", verifyUserUpdate, userController.updateUser);
 //ELIMINAR USUARIO
 router.delete("/:username", userController.deleteUser);
 

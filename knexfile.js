@@ -1,9 +1,9 @@
-require("dotenv").config();
-const path = require("path");
+require('dotenv').config();
+const path = require('path');
 
 module.exports = {
   development: {
-    client: process.env.DB_DRIVER || "pg",
+    client: process.env.DB_DRIVER || 'pg',
     connection: {
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
@@ -16,8 +16,9 @@ module.exports = {
       },
     },
     migrations: {
-      directory: path.join(__dirname, "database", "migrations"),
+      directory: path.join(__dirname, 'database', 'migrations'), 
       // Ruta personalizada para los archivos de migración
     },
   },
+  // ...
 };
