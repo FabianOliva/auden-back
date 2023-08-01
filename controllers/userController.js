@@ -174,7 +174,9 @@ const getUserInfo = async (req, res) => {
 
 const getUserPlaylists = async (req, res) => {
   try {
-    const username = req.params.username;
+    // const username = "dani";
+    const username = req.body.name;
+    console.log("del get user", req.body);
     const userPlaylist = await userModels.getUserPlaylistsModel(username);
     res.send(userPlaylist);
     console.log("userPlaylist");

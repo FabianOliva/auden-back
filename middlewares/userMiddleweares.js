@@ -25,12 +25,10 @@ const verifyUserExistence = async (req, res, next) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
     if (!passwordRegex.test(user_userpassword)) {
-      return res
-        .status(400)
-        .json({
-          mensaje:
-            "La contraseña debe tener al menos 6 caracteres, una mayúscula y al menos un carácter especial.",
-        });
+      return res.status(400).json({
+        mensaje:
+          "La contraseña debe tener al menos 6 caracteres, una mayúscula y al menos un carácter especial.",
+      });
     }
 
     next();
@@ -41,17 +39,5 @@ const verifyUserExistence = async (req, res, next) => {
 };
 
 //Verificar el Token
-const verifyToken = (token) => {
-  try {
-    // Verifica el token usando el secret
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Si la verificación tiene éxito, el token es válido
-    return decodedToken;
-  } catch (error) {
-    // Si hay un error en la verificación, el token no es válido
-    return null;
-  }
-};
-
-module.exports = { verifyUserExistence, generateToken, verifyToken };
+module.exports = { verifyUserExistence, generateToken };
