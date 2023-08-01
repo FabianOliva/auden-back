@@ -31,9 +31,32 @@ const getPlaylistSongs = async (playlist_Id) => {
 };
 
 //-------------------CREATE PLAYLIST-------------------/
+const createPlaylistModel = async (playlistData) => {
+  console.log("Data recibida en el modelo:", playlistData);
+
+  // Insertar en la tabla "playlist" y obtener el "playlist_id" generado
+  const [playlistIdObj] = await db("playlist").returning("playlist_id").insert({
+    user_id: playlistData.user_id,
+    playlist_name: playlistData.playlist_name,
+  });
+
+  const playlistId = playlistIdObj.playlist_id;
+
+  // Crear un array de objetos para insertar en "playlist_song"
+  const playlistSongs = playlistData.songs.map((songId) => ({
+    playlist_id: playlistId,
+    song_id: songId,
+  }));
+
+  console.log("Data de las canciones a insertar:", playlistSongs);
+
+  // Insertar las canciones en la tabla "playlist_song"
+  await db("playlist_song").insert(playlistSongs);
+};
 
 module.exports = {
   getPlaylistModel,
   getPlaylistsModel,
   getPlaylistSongs,
+  createPlaylistModel,
 };

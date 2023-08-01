@@ -9,4 +9,6 @@ router.get("/:playlist_Id", playlistController.getPlaylist);
 
 router.get("/songs/:playlist_Id", playlistController.getPlaylistSongs);
 
+router.post("/", playlistController.createPlaylistController);
+
 module.exports = router;
